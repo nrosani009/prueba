@@ -1,0 +1,27 @@
+graph TD
+    %% Definición de Estilos
+    classDef system fill:#1168bd,stroke:#0b4884,color:#ffffff,font-weight:bold,stroke-width:2px;
+    classDef actor fill:#083f72,stroke:#052e56,color:#ffffff;
+    classDef external fill:#999999,stroke:#666666,color:#ffffff;
+
+    %% Actores
+    Viajero["Viajero (Web/Móvil)"]:::actor
+    DataTeam["Equipo de Datos"]:::actor
+
+    %% Sistema Central
+    Trotamundos(("SISTEMA TROTAMUNDOS\n(Panel de Gestión de Viajes)")):::system
+
+    %% Sistemas Externos
+    ProveedoresCorreo["Proveedores de Correo\n(Gmail, Outlook, etc.)"]:::external
+    SistemasTerceros["Sistemas de Viajes\n(Aerolíneas, Hoteles, Rentadoras)"]:::external
+    AgenciaPreferida["Agencia de Viajes Preferida"]:::external
+    RedesSociales["Redes Sociales\n(Twitter, Facebook, etc.)"]:::external
+
+    %% Relaciones
+    Viajero <-->|Gestiona reservas, visualiza panel, recibe sugerencias/soporte| Trotamundos
+    DataTeam -->|Ejecuta consultas analíticas pesadas, extrae tendencias| Trotamundos
+    
+    Trotamundos -->|Sondea y extrae información de reservas (vía OAuth)| ProveedoresCorreo
+    Trotamundos <-->|Consulta detalles, actualizaciones y cancelaciones (APIs)| SistemasTerceros
+    Trotamundos <-->|Deriva problemas complejos / Sincroniza soporte| AgenciaPreferida
+    Trotamundos -->|Publica itinerarios compartidos| RedesSociales
